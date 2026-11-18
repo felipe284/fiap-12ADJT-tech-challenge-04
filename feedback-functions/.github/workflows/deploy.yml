@@ -1,0 +1,31 @@
+name: Build e deploy das funcoes
+
+on:
+  workflow_dispatch:
+
+env:
+  FUNCTION_APP_NAME: fiap-feedback-fm-tc4
+
+jobs:
+  build-e-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: feedback-functions/pom.xml
+
+      - name: Build e testes
+        working-directory: feedback-functions
+        run: chmod +x mvnw && ./mvnw -B package
+
+      - name: Deploy na Azure Functions
+        uses: azure/functions-action@v1
+        with:
+          app-name: ${{ env.FUNCTION_APP_NAME }}
+          package: feedback-functions/target/azure-functions/${{ env.FUNCTION_APP_NAME }}
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
