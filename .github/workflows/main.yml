@@ -23,6 +23,15 @@ jobs:
         working-directory: feedback-functions
         run: chmod +x mvnw && ./mvnw -B package
 
+      - name: Validar secret do perfil de publicacao
+        env:
+          PUBLISH_PROFILE: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+        run: |
+          if [ -z "$PUBLISH_PROFILE" ]; then
+            echo "Secret AZURE_FUNCTIONAPP_PUBLISH_PROFILE nao configurado em Repository secrets"
+            exit 1
+          fi
+
       - name: Deploy na Azure Functions
         uses: azure/functions-action@v1
         with:
