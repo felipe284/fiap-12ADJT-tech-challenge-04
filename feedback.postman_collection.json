@@ -1,0 +1,216 @@
+{
+  "info": {
+    "_postman_id": "7c1f2a9e-4b3d-4f6a-9d21-5e8a0b6c1d42",
+    "name": "Tech Challenge 4 - Plataforma de Feedback",
+    "description": "Chamadas da API de avaliacoes. Preencha a variavel de colecao functionKey com a chave obtida em: az functionapp keys list -g rg-fiap-feedback-tf -n fiap-feedback-fm-tc4 --query functionKeys.default -o tsv",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Avaliacao critica (nota 2) - 201",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201', function () { pm.response.to.have.status(201); });",
+              "pm.test('Urgencia CRITICA', function () { pm.expect(pm.response.json().urgencia).to.eql('CRITICA'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-functions-key", "value": "{{functionKey}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descricao\": \"Aula confusa e audio ruim\",\n  \"nota\": 2\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/avaliacao",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "avaliacao"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Avaliacao media (nota 5) - 201",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201', function () { pm.response.to.have.status(201); });",
+              "pm.test('Urgencia MEDIA', function () { pm.expect(pm.response.json().urgencia).to.eql('MEDIA'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-functions-key", "value": "{{functionKey}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descricao\": \"Aula razoavel\",\n  \"nota\": 5\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/avaliacao",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "avaliacao"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Avaliacao boa (nota 9) - 201",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201', function () { pm.response.to.have.status(201); });",
+              "pm.test('Urgencia BAIXA', function () { pm.expect(pm.response.json().urgencia).to.eql('BAIXA'); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-functions-key", "value": "{{functionKey}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descricao\": \"Otima aula\",\n  \"nota\": 9\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/avaliacao",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "avaliacao"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Nota invalida (11) - 400",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 400', function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-functions-key", "value": "{{functionKey}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descricao\": \"Aula\",\n  \"nota\": 11\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/avaliacao",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "avaliacao"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Sem descricao - 400",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 400', function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-functions-key", "value": "{{functionKey}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nota\": 5\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/avaliacao",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "avaliacao"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Sem chave de acesso - 401",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 401', function () { pm.response.to.have.status(401); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descricao\": \"Aula\",\n  \"nota\": 8\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/avaliacao",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "avaliacao"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://fiap-feedback-fm-tc4.azurewebsites.net",
+      "type": "string"
+    },
+    {
+      "key": "functionKey",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
