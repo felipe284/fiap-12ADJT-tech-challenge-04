@@ -169,14 +169,16 @@ az role assignment create --assignee <seu-object-id> --role "Storage Blob Data C
 
 ### 3. Criação dos recursos
 
+Copie `infra/terraform.tfvars.example` para `infra/terraform.tfvars` e preencha os valores. Esse arquivo é ignorado pelo Git.
+
 ```bash
 cd infra
 terraform init
-terraform plan -var="subscription_id=<id-da-assinatura>" -var="admin_email=<email>" -var="suffix=fmtc4"
-terraform apply -var="subscription_id=<id-da-assinatura>" -var="admin_email=<email>" -var="suffix=fmtc4"
+terraform plan
+terraform apply
 ```
 
-Variáveis:
+Variáveis do `terraform.tfvars`:
 
 - `subscription_id`: assinatura Azure
 - `admin_email`: e-mail do administrador, que recebe notificações, relatório e alertas
@@ -197,7 +199,7 @@ O Cosmos DB free tier é limitado a uma conta por assinatura.
 Para remover tudo:
 
 ```bash
-terraform destroy -var="subscription_id=<id-da-assinatura>" -var="admin_email=<email>" -var="suffix=fmtc4"
+terraform destroy
 ```
 
 ---
@@ -207,10 +209,10 @@ terraform destroy -var="subscription_id=<id-da-assinatura>" -var="admin_email=<e
 Workflow:
 
 ```text
-.github/workflows/deploy.yml
+.github/workflows/main.yml
 ```
 
-A cada push na `main` que altere `feedback-functions/` (ou manualmente, em `Actions > Run workflow`), o workflow:
+O workflow é disparado apenas manualmente, em `Actions > Build e deploy das funcoes > Run workflow`. Ele:
 
 1. Instala o Java 21
 2. Executa o build e os testes

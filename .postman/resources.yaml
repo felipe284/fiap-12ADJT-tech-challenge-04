@@ -1,0 +1,13 @@
+# Use this workspace to collaborate
+workspace:
+  id: eb5ecc9b-1c68-4c77-bd24-46293016583f
+
+cloudResources:
+  collections:
+    ../postman/collections/Tech Challenge 4 - Plataforma de Feedback: a33a7221-14ba-4830-9fa3-55cf1d52db02
+
+# All resources in the `postman/` folder are automatically registered in Local View.
+# Point to additional files outside the `postman/` folder to register them individually. Example:
+#localResources:
+#  collections:
+#    - ../tests/E2E Test Collection/

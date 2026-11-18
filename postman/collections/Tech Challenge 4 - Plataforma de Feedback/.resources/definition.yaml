@@ -1,0 +1,5 @@
+$kind: collection
+description: "Chamadas da API de avaliacoes. Preencha a variavel de colecao functionKey com a chave obtida em: az functionapp keys list -g rg-fiap-feedback-tf -n fiap-feedback-fm-tc4 --query functionKeys.default -o tsv"
+variables:
+  baseUrl: https://fiap-feedback-fm-tc4.azurewebsites.net
+  functionKey: ""
